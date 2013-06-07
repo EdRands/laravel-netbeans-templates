@@ -1,0 +1,51 @@
+<?php
+$pageTitle = Lang::get($langBase.'pageTitle'.$langAction);
+$breadcrumbs = array(
+  Lang::choice($langBase.'crumb'.$langAction, $$${pluralResourceName}->getTotal()),
+);
+$pageHeading = Lang::get($langBase.'heading'.$langAction);
+
+// Get just the columns we want for the table
+$$${resourceName}Index = array();
+foreach ($$${pluralResourceName} as $$${resourceName}) {
+  $$${resourceName}Index[] = array(
+    'id'=>$$${resourceName}['id'],
+	'${column1}'=>$$${resourceName}['${column1}'],
+    '${column2}'=>$$${resourceName}['${column2}'],
+	'${column3}'=>$$${resourceName}['${column3}'],
+	'${column4}'=>$$${resourceName}['${column4}'],
+  );
+}
+?>
+
+@section('content')
+<div class="row-fluid">
+  <ul class="inline span6">
+    <li><?php echo Button::success_link(URL::action($actionBase.'create'), Lang::get($langBase.'link.create')); ?></li>
+    <li><?php echo Button::info_link(URL::action($actionBase.'import'), Lang::get($langBase.'link.import')); ?></li>
+  </ul>
+  <h4 class="span6 text-right"><?php echo Lang::choice($langBase.'countTotal', $$${pluralResourceName}->getTotal(), array('count'=>$$${pluralResourceName}->getTotal())); ?></h4>
+</div>
+
+@if ($$${pluralResourceName}->getTotal() > 0)
+<?php
+echo Table::striped_hover_condensed_open();
+echo Table::headers(${headers});
+echo Table::body($$${resourceName}Index)
+  ->ignore('id', ${ignore})
+  ->order(${order})
+  ->options(function($$${resourceName}) {
+      $buttons = '';
+      $buttons .= Button::primary_link(URL::action('${ControllerName}Controller@show', array('id'=>$$${resourceName}['id'])), Lang::get('${resourceName}.action.show'))->with_icon('eye-open').' ';
+      $buttons .= Button::info_link(URL::action('${ControllerName}Controller@edit', array('id'=>$$${resourceName}['id'])), Lang::get('${resourceName}.action.edit'))->with_icon('edit').' ';
+      return $buttons;
+    });
+echo Table::close();
+?>
+
+@if ($$${pluralResourceName}->getTotal() > $$${pluralResourceName}->getPerPage())
+<p class="text-center"><?php echo Lang::get($langBase.'showingFromTo', array('from'=>$$${pluralResourceName}->getFrom(), 'to'=>$$${pluralResourceName}->getTo())); ?></p>
+<?php echo $$${pluralResourceName}->links(5, Paginator::ALIGN_RIGHT, Paginator::SIZE_LARGE); ?>
+@endif
+@endif
+@stop
