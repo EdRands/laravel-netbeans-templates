@@ -1,0 +1,10 @@
+// ${Controller} Resource
+Route::get('/${route}', function() {return Redirect::route('${name}.index');});
+Route::get('/${route}s', array('as'=>'${name}.index', 'before'=>'auth', 'uses'=>'${Controller}Controller@index'));
+Route::get('/${route}/new', array('as'=>'${name}.create', 'before'=>'auth', 'uses'=>'${Controller}Controller@create'));
+Route::post('/${route}', array('as'=>'${name}.store', 'before'=>'auth|csrf', 'uses'=>'${Controller}Controller@store'));
+Route::get('/${route}/{id}', array('as'=>'${name}.show', 'before'=>'auth', 'uses'=>'${Controller}Controller@show'));
+Route::get('/${route}/{id}/edit', array('as'=>'${name}.edit', 'before'=>'auth', 'uses'=>'${Controller}Controller@edit'));
+Route::put('/${route}/{id}', array('as'=>'${name}.update', 'before'=>'auth|csrf', 'uses'=>'${Controller}Controller@update'));
+Route::delete('/${route}/{id}', array('as'=>'${name}.destroy', 'before'=>'auth|csrf', 'uses'=>'${Controller}Controller@destroy'));
+
