@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ${name?replace("Controller", "")} Resource Controller
+ * ${name?cap_first?replace("Controller", "")} Resource Controller
  */
 class ${name} extends \BaseController {
 
@@ -37,7 +37,7 @@ $this->beforeFilter('csrf', array('on'=>'post|put|delete'));
  */
 public function index() {
 // Setup the common basics
-$data = $this->setupCommonVariables('index');
+$data = $this->setupViewVariables('index');
 
 // Grab the paginated list of ${name?uncap_first?replace("Controller", "")}s
 $${name?uncap_first?replace("Controller", "")} = new ${name?replace("Controller", "")};
@@ -55,7 +55,7 @@ return View::make(static::$viewBase.'index', $data);
  */
 public function show($id) {
 // Setup the common basics
-$data = $this->setupCommonVariables('show');
+$data = $this->setupViewVariables('show');
 
 // Get the ${name?uncap_first?replace("Controller", "")}
 $data['${name?uncap_first?replace("Controller", "")}'] = ${name?replace("Controller", "")}::find($id);
@@ -71,10 +71,10 @@ return View::make(static::$viewBase.'show', $data);
  */
 public function create() {
 // Setup the common basics
-$data = $this->setupCommonVariables('create');
+$data = $this->setupViewVariables('create');
 
 // Setup form variables
-$data = array_merge($data, $this->setupFormVariables('create', 'store', array(), 'POST'));
+$data = array_merge($data, $this->setupFormVariables('create', ${name?replace("Controller", "")}::$rules, 'store', array(), 'POST'));
 
 // Get empty ${name?uncap_first?replace("Controller", "")} for form rules
 $data['${name?uncap_first?replace("Controller", "")}'] = new ${name?replace("Controller", "")};
@@ -96,7 +96,7 @@ $input = $this->sanitizeInput(array('field', ));
 $${name?uncap_first?replace("Controller", "")} = new ${name?replace("Controller", "")};
 
 // Assign the input to the ${name?uncap_first?replace("Controller", "")}
-$this->inputToResource($${name?uncap_first?replace("Controller", "")}, $input);
+$this->inputToModel($${name?uncap_first?replace("Controller", "")}, $input);
 
 if ($${name?uncap_first?replace("Controller", "")}->save()) {
 // Saved. Show it
@@ -116,10 +116,10 @@ return Redirect::action(static::$actionBase.'create')->withInput($input)->withEr
  */
 public function edit($id) {
 // Setup the common basics
-$data = $this->setupCommonVariables('edit');
+$data = $this->setupViewVariables('edit');
 
 // Setup form variables
-$data = array_merge($data, $this->setupFormVariables('edit', 'update', array('id'=>$id), 'PUT'));
+$data = array_merge($data, $this->setupFormVariables('edit', ${name?replace("Controller", "")}::$rules, 'update', array('id'=>$id), 'PUT'));
 
 // Get the specified ${name?uncap_first?replace("Controller", "")}
 $data['${name?uncap_first?replace("Controller", "")}'] = ${name?replace("Controller", "")}::find($id);
@@ -150,7 +150,7 @@ $rules = ${name?replace("Controller", "")}::$rules;
 $rules['code'] = Str::finish(${name?replace("Controller", "")}::$rules['code'], ",$id");
 
 // Assign the input to the ${name?uncap_first?replace("Controller", "")}
-$this->inputToResource($${name?uncap_first?replace("Controller", "")}, $input);
+$this->inputToModel($${name?uncap_first?replace("Controller", "")}, $input);
 
 if ($${name?uncap_first?replace("Controller", "")}->save($rules)) {
 // Saved it. Show it.
@@ -189,6 +189,5 @@ array(Lang::get($langBase.'index'), URL::action(self::$actionBase.'index'), fals
  )
 );
 }
-
 }
 ?>
