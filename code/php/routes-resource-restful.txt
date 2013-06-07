@@ -3,8 +3,8 @@ Route::get('/${route}', function() {return Redirect::route('${name}.index');});
 Route::get('/${route}s', array('as'=>'${name}.index', 'uses'=>'${Controller}Controller@index'));
 Route::get('/${route}/new', array('as'=>'${name}.create', 'uses'=>'${Controller}Controller@create'));
 Route::post('/${route}', array('as'=>'${name}.store', 'uses'=>'${Controller}Controller@store'));
-Route::get('/${route}/{id}', array('as'=>'${name}.show', 'uses'=>'${Controller}Controller@show'));
-Route::get('/${route}/{id}/edit', array('as'=>'${name}.edit', 'uses'=>'${Controller}Controller@edit'));
-Route::put('/${route}/{id}', array('as'=>'${name}.update', 'uses'=>'${Controller}Controller@update'));
-Route::delete('/${route}/{id}', array('as'=>'${name}.destroy', 'uses'=>'${Controller}Controller@destroy'));
+Route::get('/${route}/{id}', array('as'=>'${name}.show', 'uses'=>'${Controller}Controller@show'))->where('id', '[0-9]+');
+Route::get('/${route}/{id}/edit', array('as'=>'${name}.edit', 'uses'=>'${Controller}Controller@edit'))->where('id', '[0-9]+');
+Route::put('/${route}/{id}', array('as'=>'${name}.update', 'uses'=>'${Controller}Controller@update'))->where('id', '[0-9]+');
+Route::delete('/${route}/{id}', array('as'=>'${name}.destroy', 'uses'=>'${Controller}Controller@destroy'))->where('id', '[0-9]+');
 
