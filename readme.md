@@ -1,5 +1,7 @@
 # DEPRECATED — Laravel File and Code Templates for NetBeans IDE
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 This project is no longer supported. I created it for my own use, but I have not used NetBeans for years. [Visual Studio Code](https://code.visualstudio.com/) is my IDE of choice.
 
 Since a few people have starred and watched this repo, I won't just outright remove it for now.
