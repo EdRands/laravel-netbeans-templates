@@ -1,4 +1,5 @@
-#Laravel File and Code Templates for NetBeans IDE
+# Laravel File and Code Templates for NetBeans IDE
+
 ## Get your laravel coding done faster in NetBeans
 
 I created these for my own use for the way I work. You may need to modify them for your own use.
